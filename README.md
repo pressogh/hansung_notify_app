@@ -22,7 +22,7 @@ In hansung_notify_app/client
 ```react-native run-ios``` for ios
 
 ## Server
-```cd server```
+In hansung_notify_app/server
 
 ### Step 1
 
