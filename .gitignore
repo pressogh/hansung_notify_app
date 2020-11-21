@@ -1,0 +1,8 @@
+/server/.idea
+/server/venv
+/client/__tests__
+/client/android
+/client/ios
+/client/node_modules
+/client/yarn-error.log
+TODO
