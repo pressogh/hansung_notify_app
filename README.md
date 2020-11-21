@@ -2,7 +2,7 @@
 
 ## Client
 
-## Stap 1
+## Step 1
 
 First, you need to install modules
 ```
@@ -11,7 +11,7 @@ npm install
 npm update
 ```
 
-## Stap 2
+## Step 2
 
 Second, you should run scripts to start client in your ADB
 
