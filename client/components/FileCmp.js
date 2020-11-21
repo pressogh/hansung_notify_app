@@ -26,10 +26,10 @@ const FileCmp = () => {
         var data = '';
 
         var config = {
-        method: 'get',
-        url: 'http://112.160.8.4:8000/api/user/file',
-        headers: {},
-        data: data,
+          method: 'get',
+          url: 'http://112.160.8.4:8000/api/user/file',
+          headers: {},
+          data: data,
         };
 
         axios(config)
