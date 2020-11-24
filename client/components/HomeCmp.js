@@ -65,19 +65,7 @@ const styles = StyleSheet.create({
       elevation: 4,
       marginLeft: 5,
       marginRight: 5,
-      marginTop: 10,
-    },
-    
-    downloadbtn: {
-      marginTop: 10,
-      backgroundColor: "#0081ff",
-      padding: 10,
-      borderRadius: 10,
-      alignItems: "center",
-    },
-
-    downloadbtntext: {
-      color: "white"
+      marginBottom: 10,
     },
 
     title: {
