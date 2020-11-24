@@ -23,24 +23,52 @@ import {
   Linking,
 } from 'react-native';
 
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
-
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import FileCmp from './components/FileCmp';
 import HomeworkCmp from './components/HomeworkCmp';
 import QuizCmp from './components/QuizCmp';
 import NoticeCmp from './components/NoticeCmp';
 import HomeCmp from './components/HomeCmp';
 import NavbarCmp from './components/NavbarCmp';
+import ClassCmp from './components/ClassCmp';
+
 import AnimatedSplash from "react-native-animated-splash-screen";
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import DTCmp from './components/DTCmp';
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [classdata, setClassdata] = useState([]);
+
+  useEffect(() => {
+    const get_data = async () => {
+      var axios = require('axios');
+      var data = '';
+
+      var config = {
+        method: 'get',
+        url: 'http://112.160.8.4:8000/api/user/class',
+        headers: {},
+        data: data,
+      };
+
+      await axios(config)
+      .then(function (response) {
+          setClassdata(response.data.class);
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+    }
+    get_data();
+  }, []);
 
   setTimeout(() => {
     setIsLoaded(true)
   }, 3000);
+
+  const Stack = createStackNavigator();
 
   return (
     <AnimatedSplash
@@ -51,7 +79,15 @@ const App = () => {
       logoHeight={250}
       logoWidth={350}
     >
-      <NavbarCmp />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home">
+            {props => <HomeCmp {...props} classdata={classdata} />}
+          </Stack.Screen>
+          <Stack.Screen name="Detail" component={DTCmp} />
+          <Stack.Screen name="Class" component={NavbarCmp} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </AnimatedSplash>
   );
 };

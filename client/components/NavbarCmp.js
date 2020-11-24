@@ -30,40 +30,38 @@ const NavbarCmp = () => {
   const Tab = createBottomTabNavigator();
 
   return (
-    <NavigationContainer color="#252525">
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-            if (route.name === '홈') {
-              iconName = focused ? 'navicon' : 'navicon';
-            } else if (route.name === 'File') {
-                iconName = focused ? 'paperclip' : 'paperclip';
-            } else if (route.name === 'Homework') {
-                iconName = focused ? 'archive' : 'archive';
-            } else if (route.name === 'Quiz') {
-                iconName = focused ? 'question' : 'question';
-            } else if (route.name === 'Notice') {
-                iconName = focused ? 'comment' : 'comment';
-            }
-            // You can return any component that you like here!
-            return <Icon name={iconName} size={30} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'gray',
-          showLabel: false,
-        }}
-      >
-        <Tab.Screen name="홈" component={HomeCmp} />
-        <Tab.Screen name="File" component={FileCmp}  />
-        <Tab.Screen name="Homework" component={HomeworkCmp} />
-        <Tab.Screen name="Quiz" component={QuizCmp} />
-        <Tab.Screen name="Notice" component={NoticeCmp} />
-      </Tab.Navigator>
-    </NavigationContainer>
+          if (route.name === '홈') {
+            iconName = focused ? 'navicon' : 'navicon';
+          } else if (route.name === 'File') {
+              iconName = focused ? 'paperclip' : 'paperclip';
+          } else if (route.name === 'Homework') {
+              iconName = focused ? 'archive' : 'archive';
+          } else if (route.name === 'Quiz') {
+              iconName = focused ? 'question' : 'question';
+          } else if (route.name === 'Notice') {
+              iconName = focused ? 'comment' : 'comment';
+          }
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={30} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+        showLabel: false,
+      }}
+    >
+      <Tab.Screen name="홈" component={HomeCmp} />
+      <Tab.Screen name="File" component={FileCmp}  />
+      <Tab.Screen name="Homework" component={HomeworkCmp} />
+      <Tab.Screen name="Quiz" component={QuizCmp} />
+      <Tab.Screen name="Notice" component={NoticeCmp} />
+    </Tab.Navigator>
   );
 };
 

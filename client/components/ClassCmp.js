@@ -17,29 +17,48 @@ import {
 
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const HomeCmp = ({ navigation, classdata }) => {
+import NavbarCmp from './NavbarCmp';
+
+const ClassCmp = ({ navigation }) => {
+    const [classdata, setClassdata] = useState();
+
+    useEffect(() => {
+        var axios = require('axios');
+        var data = '';
+
+        var config = {
+        method: 'get',
+        url: 'http://112.160.8.4:8000/api/user/class',
+        headers: {},
+        data: data,
+        };
+
+        axios(config)
+        .then(function (response) {
+            setClassdata(response.data.class);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }, []);
+
     const renderitem = ({item, index}) => {
         return (
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Class')}>
-              <View style={styles.item}>
-                <Text style={styles.title}>{item.class_name}</Text>
-                <Text style={{flex: 1, flexWrap: "wrap"}}>{item.division}</Text>
-              </View>
+          <TouchableOpacity style={styles.card}>
+            <Text style={styles.title}>{item.class_name}</Text>
           </TouchableOpacity>
         );
     };
+    const Stack = createStackNavigator();
     return (
-        <View style={styles.container}>
-          <FlatList
-            data={classdata}
-            renderItem={renderitem}
-            keyExtractor={(item, index) => index.toString()}
-          />
-          <Text onPress={() => navigation.navigate('Detail')}>
-            A
-          </Text>
-        </View>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={NavbarCmp} />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
 }
 
@@ -68,7 +87,7 @@ const styles = StyleSheet.create({
       elevation: 4,
       marginLeft: 5,
       marginRight: 5,
-      marginTop: 10,
+      marginBottom: 10,
     },
     
     downloadbtn: {
@@ -91,4 +110,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default HomeCmp
+export default ClassCmp
