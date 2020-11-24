@@ -84,8 +84,11 @@ const App = () => {
           <Stack.Screen name="Home">
             {props => <HomeCmp {...props} classdata={classdata} />}
           </Stack.Screen>
-          <Stack.Screen name="Detail" component={DTCmp} />
-          <Stack.Screen name="Class" component={NavbarCmp} />
+          <Stack.Screen 
+            name="Class"
+            component={NavbarCmp}
+            options={({ route }) => ({ title: route.params.class_name })}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </AnimatedSplash>
