@@ -22,6 +22,7 @@ const HomeworkCmp = () => {
     const [homework, setHomework] = useState();
 
     useEffect(() => {
+      const get_data = async () => {
         var axios = require('axios');
         var data = '';
 
@@ -32,13 +33,15 @@ const HomeworkCmp = () => {
         data: data,
         };
 
-        axios(config)
+        await axios(config)
         .then(function (response) {
             setHomework(response.data.homework);
         })
         .catch(function (error) {
             console.log(error);
         });
+      }
+      get_data();
     }, []);
 
     const renderitem = ({item, index}) => {

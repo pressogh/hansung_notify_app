@@ -22,6 +22,7 @@ const NoticeCmp = () => {
     const [notice, setNotice] = useState();
 
     useEffect(() => {
+      const get_data = async () => {
         var axios = require('axios');
         var data = '';
 
@@ -32,13 +33,15 @@ const NoticeCmp = () => {
         data: data,
         };
 
-        axios(config)
+        await axios(config)
         .then(function (response) {
             setNotice(response.data.notice);
         })
         .catch(function (error) {
             console.log(error);
         });
+      }
+      get_data();
     }, []);
 
     const renderitem = ({item, index}) => {

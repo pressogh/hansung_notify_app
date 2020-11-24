@@ -22,6 +22,7 @@ const QuizCmp = () => {
     const [quiz, setQuiz] = useState();
 
     useEffect(() => {
+      const get_data = async () => {
         var axios = require('axios');
         var data = '';
 
@@ -32,13 +33,15 @@ const QuizCmp = () => {
         data: data,
         };
 
-        axios(config)
+        await axios(config)
         .then(function (response) {
             setQuiz(response.data.quiz);
         })
         .catch(function (error) {
             console.log(error);
         });
+      }
+      get_data();
     }, []);
 
     const renderitem = ({item, index}) => {

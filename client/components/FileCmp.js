@@ -22,6 +22,7 @@ const FileCmp = () => {
     const [file, setFile] = useState();
 
     useEffect(() => {
+      const get_data = async () => {
         var axios = require('axios');
         var data = '';
 
@@ -32,13 +33,15 @@ const FileCmp = () => {
           data: data,
         };
 
-        axios(config)
+        await axios(config)
         .then(function (response) {
             setFile(response.data.file);
         })
         .catch(function (error) {
             console.log(error);
         });
+      }
+      get_data();
     }, []);
 
     const renderitem = ({item, index}) => {

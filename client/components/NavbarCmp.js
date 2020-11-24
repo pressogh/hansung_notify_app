@@ -24,7 +24,7 @@ import FileCmp from './FileCmp';
 import HomeworkCmp from './HomeworkCmp';
 import QuizCmp from './QuizCmp';
 import NoticeCmp from './NoticeCmp';
-import HomeCmp from './HomeCmp';
+import ClassCmp from './ClassCmp';
 
 const NavbarCmp = () => {
   const Tab = createBottomTabNavigator();
@@ -56,7 +56,7 @@ const NavbarCmp = () => {
         showLabel: false,
       }}
     >
-      <Tab.Screen name="홈" component={HomeCmp} />
+      <Tab.Screen name="홈" component={ClassCmp} />
       <Tab.Screen name="Notice" component={NoticeCmp} />
       <Tab.Screen name="Homework" component={HomeworkCmp} />
       <Tab.Screen name="Quiz" component={QuizCmp} />
