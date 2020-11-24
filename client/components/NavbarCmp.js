@@ -57,10 +57,10 @@ const NavbarCmp = () => {
       }}
     >
       <Tab.Screen name="홈" component={HomeCmp} />
-      <Tab.Screen name="File" component={FileCmp}  />
+      <Tab.Screen name="Notice" component={NoticeCmp} />
       <Tab.Screen name="Homework" component={HomeworkCmp} />
       <Tab.Screen name="Quiz" component={QuizCmp} />
-      <Tab.Screen name="Notice" component={NoticeCmp} />
+      <Tab.Screen name="File" component={FileCmp}  />
     </Tab.Navigator>
   );
 };
