@@ -18,7 +18,7 @@ import {
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const HomeworkCmp = () => {
+const HomeworkCmp = ({ route }) => {
     const [homework, setHomework] = useState();
 
     useEffect(() => {
@@ -45,6 +45,7 @@ const HomeworkCmp = () => {
     }, []);
 
     const renderitem = ({item, index}) => {
+      if (route.params.class_name === item.class_name) {
         return (
           <FlipCard
             style={styles.card}
@@ -81,6 +82,7 @@ const HomeworkCmp = () => {
               </View>
           </FlipCard>
         );
+      }
     };
     return (
         <View style={styles.container}>
@@ -88,6 +90,7 @@ const HomeworkCmp = () => {
             data={homework}
             renderItem={renderitem}
             keyExtractor={(item, index) => index.toString()}
+            initialNumToRender={100}
           />
         </View>
     );

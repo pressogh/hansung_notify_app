@@ -87,6 +87,7 @@ const QuizCmp = () => {
             data={quiz}
             renderItem={renderitem}
             keyExtractor={(item, index) => index.toString()}
+            initialNumToRender={100}
           />
         </View>
     );

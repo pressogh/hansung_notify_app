@@ -80,6 +80,7 @@ const FileCmp = () => {
             data={file}
             renderItem={renderitem}
             keyExtractor={(item, index) => index.toString()}
+            initialNumToRender={100}
           />
         </View>
     );
