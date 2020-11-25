@@ -21,7 +21,7 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 const HomeCmp = ({ navigation, classdata }) => {
     const renderitem = ({item, index}) => {
         return (
-          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Class', {class_name: item.class_name})}>
+          <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Class', { class_name: item.class_name })}>
               <View style={styles.item}>
                 <Text style={styles.title}>{item.class_name}</Text>
                 <Text style={{flex: 1, flexWrap: "wrap"}}>{item.division}</Text>

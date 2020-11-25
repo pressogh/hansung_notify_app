@@ -18,7 +18,7 @@ import {
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const NoticeCmp = () => {
+const NoticeCmp = ({ route }) => {
     const [notice, setNotice] = useState();
 
     useEffect(() => {
@@ -45,6 +45,8 @@ const NoticeCmp = () => {
     }, []);
 
     const renderitem = ({item, index}) => {
+      console.log(route.params.class_name + "    " + item.class_name + "    " + index)
+      if (route.params.class_name === item.class_name) {
         return (
           <FlipCard
             style={styles.card}
@@ -55,24 +57,25 @@ const NoticeCmp = () => {
             flip={false}
             clickable={true}
           >
-              <View style={styles.item}>
-                  <Text style={styles.title}>{item.class_name}</Text>
-                  <Text>{item.title}</Text>
-              </View>
+            <View style={styles.item}>
+                <Text style={styles.title}>{item.class_name}</Text>
+                <Text>{item.title}</Text>
+            </View>
 
-              <View>
-                <Text style={styles.title}>{item.title}</Text>
-                <Text>{item.description}</Text>
-                <Text>{item.creation_date}</Text>
-                <TouchableOpacity onPress={() => Linking.openURL(item.link)} style={styles.linkbtn}>
-                  <Text style={styles.linktext}>
-                    <Icon name="link" size={25} style={{alignItems: "center"}}/>
-                    {item.title}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+            <View>
+              <Text style={styles.title}>{item.title}</Text>
+              <Text>{item.description}</Text>
+              <Text>{item.creation_date}</Text>
+              <TouchableOpacity onPress={() => Linking.openURL(item.link)} style={styles.linkbtn}>
+                <Text style={styles.linktext}>
+                  <Icon name="link" size={25} style={{alignItems: "center"}}/>
+                  {item.title}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </FlipCard>
         );
+      }
     };
     return (
         <View style={styles.container}>

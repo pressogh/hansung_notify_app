@@ -35,7 +35,6 @@ import AnimatedSplash from "react-native-animated-splash-screen";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import DTCmp from './components/DTCmp';
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);

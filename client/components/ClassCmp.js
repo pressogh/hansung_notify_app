@@ -2,10 +2,10 @@ import React from 'react'
 
 import {View, Text} from 'react-native';
 
-function ClassCmp() {
+const ClassCmp = ({ route }) => {
   return (
     <Text>
-      This is ClassCmp
+      This is {route.params.class_name}
     </Text>
   )
 }

@@ -26,7 +26,7 @@ import QuizCmp from './QuizCmp';
 import NoticeCmp from './NoticeCmp';
 import ClassCmp from './ClassCmp';
 
-const NavbarCmp = () => {
+const NavbarCmp = ({ route }) => {
   const Tab = createBottomTabNavigator();
 
   return (
@@ -56,11 +56,11 @@ const NavbarCmp = () => {
         showLabel: false,
       }}
     >
-      <Tab.Screen name="홈" component={ClassCmp} />
-      <Tab.Screen name="Notice" component={NoticeCmp} />
-      <Tab.Screen name="Homework" component={HomeworkCmp} />
-      <Tab.Screen name="Quiz" component={QuizCmp} />
-      <Tab.Screen name="File" component={FileCmp}  />
+      <Tab.Screen name="홈" children={()=><ClassCmp route={route} />} />
+      <Tab.Screen name="Notice" children={()=><NoticeCmp route={route} />} />
+      <Tab.Screen name="Homework" children={()=><HomeworkCmp route={route} />} />
+      <Tab.Screen name="Quiz" children={()=><QuizCmp route={route} />} />
+      <Tab.Screen name="File" children={()=><FileCmp route={route} />}  />
     </Tab.Navigator>
   );
 };
