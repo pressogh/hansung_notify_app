@@ -28,7 +28,7 @@ const FileCmp = () => {
 
         var config = {
           method: 'get',
-          url: 'http://112.160.8.4:8000/api/user/file',
+          url: 'http://220.79.31.179:8000/api/user/file',
           headers: {},
           data: data,
         };

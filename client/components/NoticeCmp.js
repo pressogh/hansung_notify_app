@@ -28,7 +28,7 @@ const NoticeCmp = ({ route }) => {
 
         var config = {
         method: 'get',
-        url: 'http://112.160.8.4:8000/api/user/notice',
+        url: 'http://220.79.31.179:8000/api/user/notice',
         headers: {},
         data: data,
         };
@@ -46,7 +46,7 @@ const NoticeCmp = ({ route }) => {
 
     const renderitem = ({item, index}) => {
       console.log(route.params.class_name + "    " + item.class_name + "    " + index)
-      if (route.params.class_name === item.class_name) {
+      if (route.params.class_name === item.class_name) { // 오류
         return (
           <FlipCard
             style={styles.card}
