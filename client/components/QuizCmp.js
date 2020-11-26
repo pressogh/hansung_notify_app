@@ -18,7 +18,7 @@ import {
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const QuizCmp = () => {
+const QuizCmp = ({ route }) => {
     const [quiz, setQuiz] = useState();
 
     useEffect(() => {
@@ -45,6 +45,7 @@ const QuizCmp = () => {
     }, []);
 
     const renderitem = ({item, index}) => {
+      if (route.params.class_name === item.class_name) {
         return (
           <FlipCard
             style={styles.card}
@@ -80,6 +81,7 @@ const QuizCmp = () => {
               </View>
           </FlipCard>
         );
+      }
     };
     return (
         <View style={styles.container}>
