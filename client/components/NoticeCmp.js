@@ -45,7 +45,6 @@ const NoticeCmp = ({ route }) => {
     }, []);
 
     const renderitem = ({item, index}) => {
-      console.log(route.params.class_name + "    " + item.class_name + "    " + index)
       if (route.params.class_name === item.class_name) {
         return (
           <FlipCard

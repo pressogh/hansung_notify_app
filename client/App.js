@@ -36,6 +36,7 @@ import AnimatedSplash from "react-native-animated-splash-screen";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [classdata, setClassdata] = useState([]);
