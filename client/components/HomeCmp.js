@@ -21,6 +21,9 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 const HomeCmp = ({ navigation, classdata }) => {
   const [selected, setselected] = useState()
+  const [dt, setdt] = useState({
+    
+  });
 
   const renderBottomSheet = () => (
     <View
@@ -28,19 +31,30 @@ const HomeCmp = ({ navigation, classdata }) => {
         paddingTop: 10,
         paddingRight: 16,
         paddingLeft: 16,
-        height: 320,
+        height: 380,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         alignItems: "center",
       }}
     >
-      <View style={{
-        backgroundColor: '#252525',
-        width: 200,
-        height: 10,
-        borderRadius: 20,
-        marginBottom: 20,
-      }} />
+      <View
+        style={{
+          backgroundColor: '#252525',
+          width: 200,
+          height: 10,
+          borderRadius: 20,
+          marginBottom: 20,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+
+          elevation: 5,
+          }}
+      />
       
       <Calendar
         onDayPress={(day) => {
@@ -56,7 +70,7 @@ const HomeCmp = ({ navigation, classdata }) => {
           [selected]: {selected: true}
         }}
         theme={{
-          selectedDayBackgroundColor: '#252525',
+          selectedDayBackgroundColor: '#70d7c7',
         }}
       />
     </View>
@@ -87,7 +101,7 @@ const HomeCmp = ({ navigation, classdata }) => {
 
       <BottomSheet
         ref={sheetRef}
-        snapPoints={['50%', '5%']}
+        snapPoints={['52%', '5%']}
         renderContent={renderBottomSheet}
         initialSnap={1}
         enabledContentTapInteraction={false}
