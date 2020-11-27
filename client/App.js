@@ -171,7 +171,15 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home">
-            {props => <HomeCmp {...props} classdata={classdata} />}
+            {
+              (props) => 
+                <HomeCmp 
+                  {...props}
+                  classdata={classdata}
+                  homeworkdata={homeworkdata}
+                  quizdata={quizdata}
+              />
+            }
           </Stack.Screen>
           <Stack.Screen 
             name="Class"

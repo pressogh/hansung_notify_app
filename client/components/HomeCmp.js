@@ -19,8 +19,11 @@ import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
-const HomeCmp = ({ navigation, classdata }) => {
-  const [selected, setselected] = useState()
+import moment from 'moment';
+
+const HomeCmp = ({ navigation, classdata, homeworkdata, quizdata }) => {
+  const [selected, setselected] = useState();
+  const [tomark, setTomark] = useState([]);
 
   const renderBottomSheet = () => (
     <View
@@ -64,7 +67,8 @@ const HomeCmp = ({ navigation, classdata }) => {
           borderRadius: 30,
         }}
         markedDates={{
-          [selected]: {selected: true}
+          [selected]: {selected: true},
+          [tomark]: {selected: true}
         }}
         theme={{
           selectedDayBackgroundColor: '#70d7c7',
