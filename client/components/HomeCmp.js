@@ -20,10 +20,12 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 const HomeCmp = ({ navigation, classdata }) => {
+  const [selected, setselected] = useState()
+
   const renderBottomSheet = () => (
     <View
       style={{
-        paddingTop: 8,
+        paddingTop: 10,
         paddingRight: 16,
         paddingLeft: 16,
         height: 320,
@@ -41,11 +43,20 @@ const HomeCmp = ({ navigation, classdata }) => {
       }} />
       
       <Calendar
-        onDayPress={(day) => {console.log('selected day', day)}}
+        onDayPress={(day) => {
+          setselected(day.dateString)
+        }}
+        monthFormat={'yyyy년 MM월'}
         style={{
           width: 425,
           height: 500,
           borderRadius: 30,
+        }}
+        markedDates={{
+          [selected]: {selected: true}
+        }}
+        theme={{
+          selectedDayBackgroundColor: '#252525',
         }}
       />
     </View>
@@ -76,11 +87,10 @@ const HomeCmp = ({ navigation, classdata }) => {
 
       <BottomSheet
         ref={sheetRef}
-        snapPoints={['50%', '3%']}
+        snapPoints={['50%', '5%']}
         renderContent={renderBottomSheet}
         initialSnap={1}
         enabledContentTapInteraction={false}
-        enableSwipeMonths={true}
       />
     </>
   );
