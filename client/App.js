@@ -40,28 +40,117 @@ import { createStackNavigator } from '@react-navigation/stack';
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [classdata, setClassdata] = useState([]);
+  const [noticedata, setNoticedata] = useState([]);
+  const [homeworkdata, setHomeworkdata] = useState([]);
+  const [quizdata, setQuizdata] = useState([]);
+  const [filedata, setFiledata] = useState([]);
+
+  const get_classdata = async () => {
+    var axios = require('axios');
+    var data = '';
+
+    var config = {
+      method: 'get',
+      url: 'http://220.79.31.179:8000/api/user/class',
+      headers: {},
+      data: data,
+    };
+
+    await axios(config)
+    .then(function (response) {
+        setClassdata(response.data.class);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
+  const get_noticedata = async () => {
+    var axios = require('axios');
+    var data = '';
+
+    var config = {
+      method: 'get',
+      url: 'http://220.79.31.179:8000/api/user/notice',
+      headers: {},
+      data: data,
+    };
+
+    await axios(config)
+    .then(function (response) {
+        setNoticedata(response.data.notice);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
+  const get_homeworkdata = async () => {
+    var axios = require('axios');
+    var data = '';
+
+    var config = {
+      method: 'get',
+      url: 'http://220.79.31.179:8000/api/user/homework',
+      headers: {},
+      data: data,
+    };
+
+    await axios(config)
+    .then(function (response) {
+        setHomeworkdata(response.data.homework);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
+  const get_quizdata = async () => {
+    var axios = require('axios');
+    var data = '';
+
+    var config = {
+      method: 'get',
+      url: 'http://220.79.31.179:8000/api/user/quiz',
+      headers: {},
+      data: data,
+    };
+
+    await axios(config)
+    .then(function (response) {
+        setQuizdata(response.data.quiz);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
+  const get_filedata = async () => {
+    var axios = require('axios');
+    var data = '';
+
+    var config = {
+      method: 'get',
+      url: 'http://220.79.31.179:8000/api/user/file',
+      headers: {},
+      data: data,
+    };
+
+    await axios(config)
+    .then(function (response) {
+        setFiledata(response.data.file);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
 
   useEffect(() => {
-    const get_data = async () => {
-      var axios = require('axios');
-      var data = '';
-
-      var config = {
-        method: 'get',
-        url: 'http://220.79.31.179:8000/api/user/class',
-        headers: {},
-        data: data,
-      };
-
-      await axios(config)
-      .then(function (response) {
-          setClassdata(response.data.class);
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-    }
-    get_data();
+    get_classdata();
+    get_noticedata();
+    get_homeworkdata();
+    get_quizdata();
+    get_filedata();
   }, []);
 
   setTimeout(() => {
@@ -86,9 +175,20 @@ const App = () => {
           </Stack.Screen>
           <Stack.Screen 
             name="Class"
-            component={NavbarCmp}
             options={({ route }) => ({ title: route.params.class_name })}
-          />
+          >
+            {
+              (props) => 
+                <NavbarCmp
+                  {...props}
+                  classdata={classdata}
+                  noticedata={noticedata}
+                  homeworkdata={homeworkdata}
+                  quizdata={quizdata}
+                  filedata={filedata}
+                />
+            }
+          </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </AnimatedSplash>

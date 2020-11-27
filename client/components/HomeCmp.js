@@ -21,9 +21,6 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 const HomeCmp = ({ navigation, classdata }) => {
   const [selected, setselected] = useState()
-  const [dt, setdt] = useState({
-    
-  });
 
   const renderBottomSheet = () => (
     <View

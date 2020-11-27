@@ -18,32 +18,7 @@ import {
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const FileCmp = ({ route }) => {
-    const [file, setFile] = useState();
-
-    useEffect(() => {
-      const get_data = async () => {
-        var axios = require('axios');
-        var data = '';
-
-        var config = {
-          method: 'get',
-          url: 'http://220.79.31.179:8000/api/user/file',
-          headers: {},
-          data: data,
-        };
-
-        await axios(config)
-        .then(function (response) {
-            setFile(response.data.file);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-      }
-      get_data();
-    }, []);
-
+const FileCmp = ({ route, filedata }) => {
     const renderitem = ({item, index}) => {
       if (route.params.class_name === item.class_name) {
         return (
@@ -79,7 +54,7 @@ const FileCmp = ({ route }) => {
     return (
         <View style={styles.container}>
           <FlatList
-            data={file}
+            data={filedata}
             renderItem={renderitem}
             keyExtractor={(item, index) => index.toString()}
             initialNumToRender={100}

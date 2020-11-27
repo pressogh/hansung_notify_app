@@ -18,32 +18,7 @@ import {
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const HomeworkCmp = ({ route }) => {
-    const [homework, setHomework] = useState();
-
-    useEffect(() => {
-      const get_data = async () => {
-        var axios = require('axios');
-        var data = '';
-
-        var config = {
-        method: 'get',
-        url: 'http://220.79.31.179:8000/api/user/homework',
-        headers: {},
-        data: data,
-        };
-
-        await axios(config)
-        .then(function (response) {
-            setHomework(response.data.homework);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-      }
-      get_data();
-    }, []);
-
+const HomeworkCmp = ({ route, homeworkdata }) => {
     const renderitem = ({item, index}) => {
       if (route.params.class_name === item.class_name) {
         return (
@@ -87,7 +62,7 @@ const HomeworkCmp = ({ route }) => {
     return (
         <View style={styles.container}>
           <FlatList
-            data={homework}
+            data={homeworkdata}
             renderItem={renderitem}
             keyExtractor={(item, index) => index.toString()}
             initialNumToRender={100}
