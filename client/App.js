@@ -30,12 +30,12 @@ import NoticeCmp from './components/NoticeCmp';
 import HomeCmp from './components/HomeCmp';
 import NavbarCmp from './components/NavbarCmp';
 import ClassCmp from './components/ClassCmp';
+import CalendarCmp from './components/CalendarCmp';
 
 import AnimatedSplash from "react-native-animated-splash-screen";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -197,6 +197,7 @@ const App = () => {
                 />
             }
           </Stack.Screen>
+          <Stack.Screen name="Calendar" component={CalendarCmp} />
         </Stack.Navigator>
       </NavigationContainer>
     </AnimatedSplash>

@@ -22,8 +22,21 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import moment from 'moment';
 
 const HomeCmp = ({ navigation, classdata, homeworkdata, quizdata }) => {
-  const [selected, setselected] = useState();
+  const [selected, setSelected] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const [tomark, setTomark] = useState([]);
+
+  useEffect(() => {
+    homeworkdata.map((item, index) => {
+      console.log(moment(item.due_date).format("YYYY-MM-DD"))
+      setTomark({
+        ...tomark,
+        [moment(item.due_date).format("YYYY-MM-DD")]: {
+          marked: true,
+        }
+      })
+      console.log(tomark)
+    })
+  }, []);
 
   const renderBottomSheet = () => (
     <View
@@ -40,7 +53,7 @@ const HomeCmp = ({ navigation, classdata, homeworkdata, quizdata }) => {
       <View
         style={{
           backgroundColor: '#252525',
-          width: 200,
+          width: 150,
           height: 10,
           borderRadius: 20,
           marginBottom: 20,
@@ -58,7 +71,15 @@ const HomeCmp = ({ navigation, classdata, homeworkdata, quizdata }) => {
       
       <Calendar
         onDayPress={(day) => {
-          setselected(day.dateString)
+          setSelected(day.dateString)
+          setTomark({
+            ...tomark,
+            [day.dateString]: {
+              marked: true,
+            }
+          })
+          console.log(tomark)
+          navigation.navigate('Calendar', { selected: day.dateString });
         }}
         monthFormat={'yyyy년 MM월'}
         style={{
@@ -67,8 +88,8 @@ const HomeCmp = ({ navigation, classdata, homeworkdata, quizdata }) => {
           borderRadius: 30,
         }}
         markedDates={{
-          [selected]: {selected: true},
-          [tomark]: {selected: true}
+          ...tomark,
+          [selected]: {"selected": true},
         }}
         theme={{
           selectedDayBackgroundColor: '#70d7c7',
@@ -76,8 +97,6 @@ const HomeCmp = ({ navigation, classdata, homeworkdata, quizdata }) => {
       />
     </View>
   );
-
-  const sheetRef = React.useRef(null);
 
   const renderitem = ({item, index}) => {
     return (
@@ -89,6 +108,8 @@ const HomeCmp = ({ navigation, classdata, homeworkdata, quizdata }) => {
       </TouchableOpacity>
     );
   };
+
+  const sheetRef = React.useRef(null);
 
   return (
     <>
