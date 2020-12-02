@@ -44,6 +44,7 @@ const App = () => {
   const [homeworkdata, setHomeworkdata] = useState([]);
   const [quizdata, setQuizdata] = useState([]);
   const [filedata, setFiledata] = useState([]);
+  const [calendardata, setCalendardata] = useState([]);
 
   const get_classdata = async () => {
     var axios = require('axios');
@@ -145,12 +146,33 @@ const App = () => {
     });
   }
 
+  const get_calendardata = async () => {
+    var axios = require('axios');
+    var data = '';
+
+    var config = {
+      method: 'get',
+      url: 'http://220.79.31.179:8000/api/user/calendar',
+      headers: {},
+      data: data,
+    };
+
+    await axios(config)
+    .then(function (response) {
+        setCalendardata(response.data.calendar);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+
   useEffect(() => {
     get_classdata();
     get_noticedata();
     get_homeworkdata();
     get_quizdata();
     get_filedata();
+    get_calendardata();
   }, []);
 
   setTimeout(() => {
@@ -178,6 +200,7 @@ const App = () => {
                   classdata={classdata}
                   homeworkdata={homeworkdata}
                   quizdata={quizdata}
+                  calendardata={calendardata}
               />
             }
           </Stack.Screen>
