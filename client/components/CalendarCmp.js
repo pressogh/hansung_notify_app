@@ -6,6 +6,7 @@ import {Agenda} from 'react-native-calendars';
 const CalendarCmp = ({ route, calendardata, day }) => {
   const [tomark, setTomark] = useState([]);
   const [calendaritem, setCalendaritem] = useState([]);
+  const [agendaitem, setAgendaitem] = useState([]);
 
   useEffect(() => {
     let calendar = {}
@@ -15,25 +16,32 @@ const CalendarCmp = ({ route, calendardata, day }) => {
         let temp = route.params.classcolor[calendardata[day[i]][j]["class_name"]];
         dotstemp.push(temp)
       }
-      calendar[day[i]] = {dots: dotstemp}};
+      calendar[day[i]] = {dots: dotstemp}
+    };
     setTomark(calendar);
+    
+    let calendaritem = {}
+    for (let i = 0; i < day.length; i++) {
+      let daystemp = []
+      let temp = {}
+      for (let j = 0; j < calendardata[day[i]].length; j++) {
+        temp["class_name"] = calendardata[day[i]][j]["class_name"]
+        temp["title"] = calendardata[day[i]][j]["title"]
+        temp["due_date"] = calendardata[day[i]][j]["due_date"]
+        daystemp.push(temp)
+      }
+      calendaritem[day[i]] = daystemp
+    }
+    setAgendaitem(calendaritem)
   }, []);
 
   return (
     <Agenda
-      items={{
-        ["2020-09-08"]: [
-          {name: "디자인 Thinking", title: "디자인씽킹_1주차활동_한줄 자기소개", due_date: "2020-09-08 00:00"},
-        ],
-        ["2020-09-15"]: [
-          {name: "정보화사회와 정보보안", title: "자기 소개", due_date: "2020-09-15 00:00"},
-          {name: "디자인 Thinking", title: "디자인씽킹_2주차 활동_디자인씽킹 프로세스 이해하기", due_date: "2020-09-15 00:00"},
-        ],
-      }}
+      items={agendaitem}
       renderItem={(item, firstItemInDay) => {
         return (
           <View style={styles.card}>
-            <Text style={styles.title}>{item.name}</Text>
+            <Text style={styles.title}>{item.class_name}</Text>
             <Text>{item.title}</Text>
             <Text>{item.due_date}</Text>
           </View>
