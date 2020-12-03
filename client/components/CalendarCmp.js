@@ -3,44 +3,20 @@ import {View, Text, StyleSheet} from 'react-native';
 
 import {Agenda} from 'react-native-calendars';
 
-const CalendarCmp = ({ route }) => {
+const CalendarCmp = ({ route, calendardata, day }) => {
   const [tomark, setTomark] = useState([]);
-  const [calendardata, setCalendardata] = useState([]);
-  const [day, setDay] = useState([]);
-
-  const get_calendardata = async () => {
-    var axios = require('axios');
-    var data = '';
-
-    var config = {
-      method: 'get',
-      url: 'http://220.79.31.179:8000/api/user/calendar',
-      headers: {},
-      data: data,
-    };
-
-    await axios(config)
-    .then(function (response) {
-        setCalendardata(response.data.calendar);
-        setDay(response.data.day);
-        let calendar = {}
-        for (let i = 0; i < day.length; i++) {
-          let dotstemp = [];
-          for (let j = 0; j < calendardata[day[i]].length; j++) {
-            let temp = route.params.classcolor[calendardata[day[i]][j]["class_name"]];
-            dotstemp.push(temp)
-          }
-          calendar[day[i]] = {dots: dotstemp}};
-        setTomark(calendar)
-        console.log(tomark)
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-  }
+  const [calendaritem, setCalendaritem] = useState([]);
 
   useEffect(() => {
-    get_calendardata();
+    let calendar = {}
+    for (let i = 0; i < day.length; i++) {
+      let dotstemp = [];
+      for (let j = 0; j < calendardata[day[i]].length; j++) {
+        let temp = route.params.classcolor[calendardata[day[i]][j]["class_name"]];
+        dotstemp.push(temp)
+      }
+      calendar[day[i]] = {dots: dotstemp}};
+    setTomark(calendar);
   }, []);
 
   return (

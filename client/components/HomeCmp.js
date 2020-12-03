@@ -20,57 +20,10 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 import moment from 'moment';
+import { Directions } from 'react-native-gesture-handler';
 
-const HomeCmp = ({ navigation, classdata }) => {
+const HomeCmp = ({ navigation, classdata, classcolor, tomark }) => {
   const [selected, setSelected] = useState(moment(new Date()).format("YYYY-MM-DD"));
-  const [tomark, setTomark] = useState([]);
-  const [classcolor, setClasscolor] = useState({
-    ["삶과 꿈"]: {color: "#FB8C65"},
-    ["IT프로그래밍"] : {color: "#B4281E"},
-    ["데이터의 이해"]: {color: "#442F51"},
-    ["정보화사회와 정보보안"]: {color: "#2D4441"},
-    ["다문화 여행과 세계시민성"]: {color: "#58805F"},
-    ["사고와 표현(발표와 토론)"]: {color: "#8CB3AF"},
-    ["디자인 Thinking"]: {color: "#67B09C"},
-    ["영어커뮤니케이션 청취/회화 Ⅱ"]: {color: "#46879E"},
-  });
-  const [calendardata, setCalendardata] = useState([]);
-  const [day, setDay] = useState([]);
-
-  const get_calendardata = async () => {
-    var axios = require('axios');
-    var data = '';
-
-    var config = {
-      method: 'get',
-      url: 'http://220.79.31.179:8000/api/user/calendar',
-      headers: {},
-      data: data,
-    };
-
-    await axios(config)
-    .then(function (response) {
-        setCalendardata(response.data.calendar);
-        setDay(response.data.day);
-        let calendar = {}
-        for (let i = 0; i < day.length; i++) {
-          let dotstemp = [];
-          for (let j = 0; j < calendardata[day[i]].length; j++) {
-            let temp = classcolor[calendardata[day[i]][j]["class_name"]];
-            dotstemp.push(temp)
-          }
-          calendar[day[i]] = {dots: dotstemp}};
-        setTomark(calendar)
-        console.log(tomark);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-  }
-
-  useEffect(() => {
-    get_calendardata();
-  }, []);
 
   const renderBottomSheet = () => (
     <View
@@ -102,10 +55,11 @@ const HomeCmp = ({ navigation, classdata }) => {
           elevation: 5,
           }}
       />
-      
+
       <Calendar
         onDayPress={(day) => {
           setSelected(day.dateString)
+          console.log(tomark)
           navigation.navigate('Calendar', { selected: day.dateString, classcolor: classcolor });
         }}
         monthFormat={'yyyy년 MM월'}

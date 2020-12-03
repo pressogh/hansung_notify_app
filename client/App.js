@@ -45,6 +45,18 @@ const App = () => {
   const [quizdata, setQuizdata] = useState([]);
   const [filedata, setFiledata] = useState([]);
   const [calendardata, setCalendardata] = useState([]);
+  const [day, setDay] = useState([]);
+  const [tomark, setTomark] = useState([]);
+  const [classcolor, setClasscolor] = useState({
+    ["삶과 꿈"]: {color: "#FB8C65"},
+    ["IT프로그래밍"] : {color: "#B4281E"},
+    ["데이터의 이해"]: {color: "#442F51"},
+    ["정보화사회와 정보보안"]: {color: "#2D4441"},
+    ["다문화 여행과 세계시민성"]: {color: "#58805F"},
+    ["사고와 표현(발표와 토론)"]: {color: "#8CB3AF"},
+    ["디자인 Thinking"]: {color: "#67B09C"},
+    ["영어커뮤니케이션 청취/회화 Ⅱ"]: {color: "#46879E"},
+  });
 
   const get_classdata = async () => {
     var axios = require('axios');
@@ -160,24 +172,41 @@ const App = () => {
     await axios(config)
     .then(function (response) {
         setCalendardata(response.data.calendar);
+        setDay(response.data.day)
     })
     .catch(function (error) {
         console.log(error);
     });
   }
 
-  useEffect(() => {
-    get_classdata();
-    get_noticedata();
-    get_homeworkdata();
-    get_quizdata();
-    get_filedata();
-    get_calendardata();
-  }, []);
+  const make_tomark =  () => {
+    let calendar = {}
+    for (let i = 0; i < day.length; i++) {
+      let dotstemp = []
+      for (let j = 0; j < calendardata[day[i]].length; j++) {
+        let temp = classcolor[calendardata[day[i]][j]["class_name"]]
+        dotstemp.push(temp);
+      }
+      calendar[day[i]] = {dots: dotstemp}};
+    setTomark(calendar)
+  }
 
-  setTimeout(() => {
-    setIsLoaded(true)
-  }, 3000);
+  useEffect(() => {
+    async function get_dataes() {
+      await get_classdata();
+      await get_noticedata();
+      await get_homeworkdata();
+      await get_quizdata();
+      await get_filedata();
+      await get_calendardata();
+      await make_tomark();
+    }
+    get_dataes();
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 3000);
+    make_tomark();
+  }, []);  
 
   const Stack = createStackNavigator();
 
@@ -196,11 +225,10 @@ const App = () => {
             {
               (props) => 
                 <HomeCmp 
-                  {...props}
-                  classdata={classdata}
-                  homeworkdata={homeworkdata}
-                  quizdata={quizdata}
-                  calendardata={calendardata}
+                {...props}
+                classdata={classdata}
+                tomark={tomark}
+                classcolor={classcolor}
               />
             }
           </Stack.Screen>
@@ -220,7 +248,16 @@ const App = () => {
                 />
             }
           </Stack.Screen>
-          <Stack.Screen name="Calendar" component={CalendarCmp} />
+          <Stack.Screen name="Calendar">
+            {
+              (props) => 
+                <CalendarCmp 
+                  {...props}
+                  calendardata={calendardata}
+                  day={day}
+              />
+            }
+          </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </AnimatedSplash>
