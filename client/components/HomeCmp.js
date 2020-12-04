@@ -83,20 +83,20 @@ const HomeCmp = ({ navigation, classdata, classcolor, tomark }) => {
   const renderitem = ({item, index}) => {
     return (
       <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Class', { class_name: item.class_name })}>
-          <View style={styles.item}>
-          <View style=
-            {{
-              height: 8,
-              width: 8,
-              borderRadius: 1000,
-              backgroundColor: classcolor[item.class_name].color,
-              marginTop: 8,
-              marginRight: 10,
-            }}
-              />
-            <Text style={styles.title}>{item.class_name}</Text>
-            <Text style={{flex: 1, flexWrap: "wrap"}}>{item.division}</Text>
-          </View>
+        <View style={styles.item}>
+        <View style=
+          {{
+            height: 8,
+            width: 8,
+            borderRadius: 1000,
+            backgroundColor: classcolor[item.class_name].color,
+            marginTop: 8,
+            marginRight: 10,
+          }}
+            />
+          <Text style={styles.title}>{item.class_name}</Text>
+          <Text style={{flex: 1, flexWrap: "wrap"}}>{item.division}</Text>
+        </View>
       </TouchableOpacity>
     );
   };

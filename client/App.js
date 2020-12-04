@@ -64,7 +64,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://220.79.31.179:8000/api/user/class',
+      url: 'http://221.165.119.132:8000/api/user/class',
       headers: {},
       data: data,
     };
@@ -84,7 +84,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://220.79.31.179:8000/api/user/notice',
+      url: 'http://221.165.119.132:8000/api/user/notice',
       headers: {},
       data: data,
     };
@@ -104,7 +104,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://220.79.31.179:8000/api/user/homework',
+      url: 'http://221.165.119.132:8000/api/user/homework',
       headers: {},
       data: data,
     };
@@ -124,7 +124,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://220.79.31.179:8000/api/user/quiz',
+      url: 'http://221.165.119.132:8000/api/user/quiz',
       headers: {},
       data: data,
     };
@@ -144,7 +144,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://220.79.31.179:8000/api/user/file',
+      url: 'http://221.165.119.132:8000/api/user/file',
       headers: {},
       data: data,
     };
@@ -164,7 +164,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://220.79.31.179:8000/api/user/calendar',
+      url: 'http://221.165.119.132:8000/api/user/calendar',
       headers: {},
       data: data,
     };
