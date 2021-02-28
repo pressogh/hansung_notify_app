@@ -4,3 +4,6 @@
 /client/node_modules
 /client/yarn-error.log
 TODO
+
+user.db
+temp.txt

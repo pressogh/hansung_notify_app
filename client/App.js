@@ -48,14 +48,14 @@ const App = () => {
   const [day, setDay] = useState([]);
   const [tomark, setTomark] = useState([]);
   const [classcolor, setClasscolor] = useState({
-    ["삶과 꿈"]: {color: "#FB8C65"},
-    ["IT프로그래밍"] : {color: "#B4281E"},
-    ["데이터의 이해"]: {color: "#442F51"},
-    ["정보화사회와 정보보안"]: {color: "#2D4441"},
-    ["다문화 여행과 세계시민성"]: {color: "#58805F"},
-    ["사고와 표현(발표와 토론)"]: {color: "#8CB3AF"},
-    ["디자인 Thinking"]: {color: "#67B09C"},
-    ["영어커뮤니케이션 청취/회화 Ⅱ"]: {color: "#46879E"},
+    ["삶과 꿈"]: {color: "#B4281E"},
+    ["IT프로그래밍"] : {color: "#FF9800"},
+    ["데이터의 이해"]: {color: "#FFEB3B"},
+    ["정보화사회와 정보보안"]: {color: "#4CAF50"},
+    ["다문화 여행과 세계시민성"]: {color: "#3F51B5"},
+    ["사고와 표현(발표와 토론)"]: {color: "#673AB7"},
+    ["디자인 Thinking"]: {color: "#795548"},
+    ["영어커뮤니케이션 청취/회화 Ⅱ"]: {color: "#E91E63"},
   });
 
   const get_classdata = async () => {
@@ -64,7 +64,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://221.165.119.132:8000/api/user/class',
+      url: 'http://121.172.4.72:8000/api/user/class',
       headers: {},
       data: data,
     };
@@ -84,7 +84,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://221.165.119.132:8000/api/user/notice',
+      url: 'http://121.172.4.72:8000/api/user/notice',
       headers: {},
       data: data,
     };
@@ -104,7 +104,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://221.165.119.132:8000/api/user/homework',
+      url: 'http://121.172.4.72:8000/api/user/homework',
       headers: {},
       data: data,
     };
@@ -124,7 +124,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://221.165.119.132:8000/api/user/quiz',
+      url: 'http://121.172.4.72:8000/api/user/quiz',
       headers: {},
       data: data,
     };
@@ -144,7 +144,7 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://221.165.119.132:8000/api/user/file',
+      url: 'http://121.172.4.72:8000/api/user/file',
       headers: {},
       data: data,
     };
@@ -164,14 +164,14 @@ const App = () => {
 
     var config = {
       method: 'get',
-      url: 'http://221.165.119.132:8000/api/user/calendar',
+      url: 'http://121.172.4.72:8000/api/user/calendar',
       headers: {},
       data: data,
     };
 
     await axios(config)
     .then(function (response) {
-        setCalendardata(response.data.calendar);
+        setCalendardata(response.data.calendar)
         setDay(response.data.day)
     })
     .catch(function (error) {
@@ -179,7 +179,7 @@ const App = () => {
     });
   }
 
-  const make_tomark =  () => {
+  const make_tomark = async () => {
     let calendar = {}
     for (let i = 0; i < day.length; i++) {
       let dotstemp = []
@@ -187,24 +187,21 @@ const App = () => {
         let temp = classcolor[calendardata[day[i]][j]["class_name"]]
         dotstemp.push(temp);
       }
-      calendar[day[i]] = {dots: dotstemp}};
-    setTomark(calendar)
+      calendar[day[i]] = {dots: dotstemp}
+    };
+    await setTomark(calendar);
+    setTimeout(() => {
+      setIsLoaded(true);
+    }, 3000)
   }
 
   useEffect(() => {
-    async function get_dataes() {
-      await get_classdata();
-      await get_noticedata();
-      await get_homeworkdata();
-      await get_quizdata();
-      await get_filedata();
-      await get_calendardata();
-      await make_tomark();
-    }
-    get_dataes();
-    setTimeout(() => {
-      setIsLoaded(true);
-    }, 3000);
+    get_classdata();
+    get_noticedata();
+    get_homeworkdata();
+    get_quizdata();
+    get_filedata();
+    get_calendardata();
     make_tomark();
   }, []);  
 
@@ -245,6 +242,7 @@ const App = () => {
                   homeworkdata={homeworkdata}
                   quizdata={quizdata}
                   filedata={filedata}
+                  classcolor={classcolor}
                 />
             }
           </Stack.Screen>
@@ -255,6 +253,7 @@ const App = () => {
                   {...props}
                   calendardata={calendardata}
                   day={day}
+                  tomark={tomark}
               />
             }
           </Stack.Screen>

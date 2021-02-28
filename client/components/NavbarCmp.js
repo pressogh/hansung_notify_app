@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/EvilIcons'
 
@@ -26,7 +26,7 @@ import QuizCmp from './QuizCmp';
 import NoticeCmp from './NoticeCmp';
 import ClassCmp from './ClassCmp';
 
-const NavbarCmp = ({ route, noticedata, homeworkdata, quizdata, filedata, classdata }) => {
+const NavbarCmp = ({ route, noticedata, homeworkdata, quizdata, filedata, classdata, navigation, classcolor }) => {
   const Tab = createBottomTabNavigator();
 
   return (
@@ -37,13 +37,13 @@ const NavbarCmp = ({ route, noticedata, homeworkdata, quizdata, filedata, classd
 
           if (route.name === '홈') {
             iconName = focused ? 'navicon' : 'navicon';
-          } else if (route.name === 'File') {
+          } else if (route.name === '파일') {
               iconName = focused ? 'paperclip' : 'paperclip';
-          } else if (route.name === 'Homework') {
+          } else if (route.name === '과제') {
               iconName = focused ? 'archive' : 'archive';
-          } else if (route.name === 'Quiz') {
+          } else if (route.name === '퀴즈') {
               iconName = focused ? 'question' : 'question';
-          } else if (route.name === 'Notice') {
+          } else if (route.name === '공지사항') {
               iconName = focused ? 'comment' : 'comment';
           }
           // You can return any component that you like here!
@@ -56,11 +56,11 @@ const NavbarCmp = ({ route, noticedata, homeworkdata, quizdata, filedata, classd
         showLabel: false,
       }}
     >
-      <Tab.Screen name="홈" children={()=><ClassCmp route={route} classdata={classdata} />} />
-      <Tab.Screen name="Notice" children={()=><NoticeCmp route={route} noticedata={noticedata} />} />
-      <Tab.Screen name="Homework" children={()=><HomeworkCmp route={route} homeworkdata={homeworkdata} />} />
-      <Tab.Screen name="Quiz" children={()=><QuizCmp route={route} quizdata={quizdata} />} />
-      <Tab.Screen name="File" children={()=><FileCmp route={route} filedata={filedata} />}  />
+      <Tab.Screen name="홈" children={()=><ClassCmp route={route} classdata={classdata} classcolor={classcolor} />} />
+      <Tab.Screen name="공지사항" children={()=><NoticeCmp route={route} noticedata={noticedata} /> } />
+      <Tab.Screen name="과제" children={()=><HomeworkCmp route={route} homeworkdata={homeworkdata} />} />
+      <Tab.Screen name="퀴즈" children={()=><QuizCmp route={route} quizdata={quizdata} />} />
+      <Tab.Screen name="파일" children={()=><FileCmp route={route} filedata={filedata} />}  />
     </Tab.Navigator>
   );
 };

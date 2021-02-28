@@ -17,13 +17,15 @@ import {
 
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
 import moment from 'moment';
-import { Directions } from 'react-native-gesture-handler';
+import {Directions} from 'react-native-gesture-handler';
 
-const HomeCmp = ({ navigation, classdata, classcolor, tomark }) => {
-  const [selected, setSelected] = useState(moment(new Date()).format("YYYY-MM-DD"));
+const HomeCmp = ({navigation, classdata, classcolor, tomark}) => {
+  const [selected, setSelected] = useState(
+    moment(new Date()).format('YYYY-MM-DD'),
+  );
 
   const renderBottomSheet = () => (
     <View
@@ -34,9 +36,8 @@ const HomeCmp = ({ navigation, classdata, classcolor, tomark }) => {
         height: 380,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
-        alignItems: "center",
-      }}
-    >
+        alignItems: 'center',
+      }}>
       <View
         style={{
           backgroundColor: '#252525',
@@ -44,7 +45,7 @@ const HomeCmp = ({ navigation, classdata, classcolor, tomark }) => {
           height: 10,
           borderRadius: 20,
           marginBottom: 20,
-          shadowColor: "#000",
+          shadowColor: '#000',
           shadowOffset: {
             width: 0,
             height: 2,
@@ -53,14 +54,16 @@ const HomeCmp = ({ navigation, classdata, classcolor, tomark }) => {
           shadowRadius: 3.84,
 
           elevation: 5,
-          }}
+        }}
       />
 
       <Calendar
         onDayPress={(day) => {
-          setSelected(day.dateString)
-          console.log(tomark)
-          navigation.navigate('Calendar', { selected: day.dateString, classcolor: classcolor });
+          setSelected(day.dateString);
+          navigation.navigate('Calendar', {
+            selected: day.dateString,
+            classcolor: classcolor,
+          });
         }}
         monthFormat={'yyyy년 MM월'}
         style={{
@@ -70,7 +73,7 @@ const HomeCmp = ({ navigation, classdata, classcolor, tomark }) => {
         }}
         markedDates={{
           ...tomark,
-          [selected]: {"selected": true},
+          [selected]: {selected: true},
         }}
         theme={{
           selectedDayBackgroundColor: '#70d7c7',
@@ -82,20 +85,40 @@ const HomeCmp = ({ navigation, classdata, classcolor, tomark }) => {
 
   const renderitem = ({item, index}) => {
     return (
-      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Class', { class_name: item.class_name })}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() =>
+          navigation.navigate('Class', {class_name: item.class_name})
+        }>
         <View style={styles.item}>
-        <View style=
-          {{
-            height: 8,
-            width: 8,
-            borderRadius: 1000,
-            backgroundColor: classcolor[item.class_name].color,
-            marginTop: 8,
-            marginRight: 10,
-          }}
-            />
+          <View
+            style={{
+              height: 8,
+              width: 8,
+              borderRadius: 1000,
+              backgroundColor: classcolor[item.class_name].color,
+              marginTop: 8,
+              marginRight: 10,
+            }}
+          />
           <Text style={styles.title}>{item.class_name}</Text>
-          <Text style={{flex: 1, flexWrap: "wrap"}}>{item.division}</Text>
+          {
+            item.class_name === "다문화 여행과 세계시민성" || item.class_name === "사고와 표현(발표와 토론)" || item.class_name === "디자인 Thinking" ? (
+              <View
+                style={{
+                  height: 5,
+                  width: 5,
+                  borderRadius: 1000,
+                  backgroundColor: '#FF0000',
+                  marginTop: 8,
+                  marginRight: 10,
+                }}
+              />
+            ) : (
+              null
+            )
+          }
+          
         </View>
       </TouchableOpacity>
     );
@@ -122,42 +145,42 @@ const HomeCmp = ({ navigation, classdata, classcolor, tomark }) => {
       />
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 10,
-      paddingTop: 15,
-      paddingRight: 15,
-      paddingLeft: 15,
-    },
+  container: {
+    flex: 1,
+    padding: 10,
+    paddingTop: 15,
+    paddingRight: 15,
+    paddingLeft: 15,
+  },
 
-    item: {
-      padding: 5,
-      flexDirection: 'row',
-    },
+  item: {
+    padding: 5,
+    flexDirection: 'row',
+  },
 
-    card: {
-      backgroundColor: "white",
-      borderRadius: 15,
-      padding: 10,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.8,
-      shadowRadius: 2,
-      elevation: 4,
-      marginLeft: 5,
-      marginRight: 5,
-      marginBottom: 10,
-    },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 15,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 4,
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 10,
+  },
 
-    title: {
-      fontSize: 16,
-      paddingBottom: 10,
-      fontWeight: "bold",
-      flex: 11,
-    },
-  });
+  title: {
+    fontSize: 16,
+    paddingBottom: 10,
+    fontWeight: 'bold',
+    flex: 11,
+  },
+});
 
-export default HomeCmp
+export default HomeCmp;
