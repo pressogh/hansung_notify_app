@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
@@ -96,29 +97,28 @@ const HomeCmp = ({navigation, classdata, classcolor, tomark}) => {
               height: 8,
               width: 8,
               borderRadius: 1000,
-              backgroundColor: classcolor[item.class_name].color,
+              backgroundColor: classcolor[item.class_name]
+                ? classcolor[item.class_name].color
+                : '#000000',
               marginTop: 8,
               marginRight: 10,
             }}
           />
           <Text style={styles.title}>{item.class_name}</Text>
-          {
-            item.class_name === "다문화 여행과 세계시민성" || item.class_name === "사고와 표현(발표와 토론)" || item.class_name === "디자인 Thinking" ? (
-              <View
-                style={{
-                  height: 5,
-                  width: 5,
-                  borderRadius: 1000,
-                  backgroundColor: '#FF0000',
-                  marginTop: 8,
-                  marginRight: 10,
-                }}
-              />
-            ) : (
-              null
-            )
-          }
-          
+          {item.class_name === '다문화 여행과 세계시민성' ||
+          item.class_name === '사고와 표현(발표와 토론)' ||
+          item.class_name === '디자인 Thinking' ? (
+            <View
+              style={{
+                height: 5,
+                width: 5,
+                borderRadius: 1000,
+                backgroundColor: '#FF0000',
+                marginTop: 8,
+                marginRight: 10,
+              }}
+            />
+          ) : null}
         </View>
       </TouchableOpacity>
     );

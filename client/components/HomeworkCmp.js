@@ -18,103 +18,100 @@ import {
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const HomeworkCmp = ({ route, homeworkdata }) => {
-    const renderitem = ({item, index}) => {
-      if (route.params.class_name === item.class_name) {
-        return (
-          <FlipCard
-            style={styles.card}
-            friction={4}
-            perspective={1000}
-            flipHorizontal={false}
-            flipVertical={true}
-            flip={false}
-            clickable={true}
-          >
-              <View style={styles.item}>
-                  <Text style={styles.title}>{item.class_name}</Text>
-                  <Text>{item.title}</Text>
-              </View>
+const HomeworkCmp = ({route, homeworkdata}) => {
+  const renderitem = ({item, index}) => {
+    if (route.params.class_name === item.class_name) {
+      return (
+        <FlipCard
+          style={styles.card}
+          friction={4}
+          perspective={1000}
+          flipHorizontal={false}
+          flipVertical={true}
+          flip={false}
+          clickable={true}>
+          <View style={styles.item}>
+            <Text style={styles.title}>{item.class_name}</Text>
+            <Text>{item.title}</Text>
+          </View>
 
-              <View>
-                <Text style={styles.title}>{item.title}</Text>
-                <Text>{item.description}</Text>
-                <Text>{item.due_date}</Text>
-                <Text>{item.status}</Text>
-                <Text>
-                  {item.grade === "-" ? (
-                    "0.00/0.00"
-                  ): (
-                    item.grade + "/100.00"
-                  )}
-                </Text>              
-                <TouchableOpacity onPress={() => Linking.openURL(item.link)} style={styles.linkbtn}>
-                  <Text style={styles.linktext}>
-                    <Icon name="link" size={25} style={{alignItems: "center"}}/>
-                    {item.title}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-          </FlipCard>
-        );
-      }
-    };
-    return (
-        <View style={styles.container}>
-          <FlatList
-            data={homeworkdata}
-            renderItem={renderitem}
-            keyExtractor={(item, index) => index.toString()}
-            initialNumToRender={100}
-          />
-        </View>
-    );
-}
+          <View>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text>{item.description}</Text>
+            <Text>{item.due_date}</Text>
+            <Text>{item.status}</Text>
+            <Text>
+              {item.grade === '-' ? '0.00/0.00' : item.grade + '/100.00'}
+            </Text>
+            <TouchableOpacity
+              onPress={() => Linking.openURL(item.link)}
+              style={styles.linkbtn}>
+              <Text style={styles.linktext}>
+                <Icon name="link" size={25} style={{alignItems: 'center'}} />
+                {item.title}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </FlipCard>
+      );
+    }
+  };
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={homeworkdata}
+        renderItem={renderitem}
+        keyExtractor={(item, index) => index.toString()}
+        initialNumToRender={100}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 10,
-      paddingTop: 15,
-      paddingRight: 15,
-      paddingLeft: 15,
-    },
+  container: {
+    flex: 1,
+    padding: 10,
+    paddingTop: 15,
+    paddingRight: 15,
+    paddingLeft: 15,
+  },
 
-    item: {
-      padding: 5,
-    },
+  item: {
+    padding: 5,
+  },
 
-    card: {
-      backgroundColor: "white",
-      borderRadius: 15,
-      padding: 10,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.8,
-      shadowRadius: 2,
-      elevation: 4,
-      marginLeft: 5,
-      marginRight: 5,
-      marginBottom: 10,
-    },
-    
-    linkbtn: {
-      marginTop: 10,
-      backgroundColor: "#0081ff",
-      padding: 10,
-      borderRadius: 10,
-      alignItems: "center",
-    },
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 15,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 4,
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 10,
+  },
 
-    linktext: {
-      color: "white"
-    },
+  linkbtn: {
+    marginTop: 10,
+    backgroundColor: '#0081ff',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
 
-    title: {
-      fontSize: 16,
-      paddingBottom: 10,
-      fontWeight: "bold",
-    },
-  });
+  linktext: {
+    color: 'white',
+  },
 
-export default HomeworkCmp
+  title: {
+    fontSize: 16,
+    paddingBottom: 10,
+    fontWeight: 'bold',
+  },
+});
+
+export default HomeworkCmp;
