@@ -17,7 +17,7 @@ import {
 
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import {URL} from '../../client/env.json';
+import {URL} from '../../env.json';
 
 const NoticeCmp = ({route}) => {
   const [noticedata, setNoticeData] = useState([]);
