@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import Icon from 'react-native-vector-icons/EvilIcons'
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 import {
   SafeAreaView,
@@ -25,13 +25,21 @@ import NavbarCmp from './NavbarCmp';
 import ClassCmp from './ClassCmp';
 import CalendarCmp from './CalendarCmp';
 
-import AnimatedSplash from "react-native-animated-splash-screen";
+import AnimatedSplash from 'react-native-animated-splash-screen';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const HomeNavCmp = (classdata, noticedata, homeworkdata, quizdata, calendardata, day, tomark, classcolor) => {
-
+const HomeNavCmp = (
+  classdata,
+  noticedata,
+  homeworkdata,
+  quizdata,
+  calendardata,
+  day,
+  tomark,
+  classcolor,
+) => {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>

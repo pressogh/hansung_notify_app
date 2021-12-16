@@ -67,12 +67,16 @@ const FileCmp = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={filedata}
-        renderItem={renderitem}
-        keyExtractor={(item, index) => index.toString()}
-        initialNumToRender={100}
-      />
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <FlatList
+          data={filedata}
+          renderItem={renderitem}
+          keyExtractor={(item, index) => index.toString()}
+          initialNumToRender={100}
+        />
+      )}
     </View>
   );
 };

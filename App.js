@@ -41,12 +41,8 @@ import {getData} from './src/service/Api';
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [classdata, setClassdata] = useState([]);
-  const [noticedata, setNoticedata] = useState([]);
-  const [homeworkdata, setHomeworkdata] = useState([]);
-  const [quizdata, setQuizdata] = useState([]);
-  const [filedata, setFiledata] = useState([]);
-  const [calendardata, setCalendardata] = useState([]);
+  const [classdata, setClassdata] = useState();
+  const [calendardata, setCalendardata] = useState();
   const [day, setDay] = useState([]);
   const [tomark, setTomark] = useState([]);
   const [classcolor, setClasscolor] = useState({
@@ -71,23 +67,18 @@ const App = () => {
       calendar[day[i]] = {dots: dotstemp};
     }
     await setTomark(calendar);
-    setTimeout(() => {
-      setIsLoaded(true);
-    }, 3000);
   };
 
   useEffect(() => {
     const get_data = async () => {
       setClassdata(await getData('class'));
-      setHomeworkdata(await getData('homework'));
-      setQuizdata(await getData('quiz'));
-      setFiledata(await getData('file'));
       setCalendardata(await getData('calendar'));
+      make_tomark();
+      setIsLoaded(true);
     };
 
-    get_data();
-    make_tomark();
-  }, []);
+    if (!classdata) get_data();
+  }, [classdata]);
 
   const Stack = createStackNavigator();
 
@@ -118,8 +109,6 @@ const App = () => {
               <NavbarCmp
                 {...props}
                 classdata={classdata}
-                quizdata={quizdata}
-                filedata={filedata}
                 classcolor={classcolor}
               />
             )}
