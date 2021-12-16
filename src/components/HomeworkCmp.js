@@ -64,10 +64,8 @@ const HomeworkCmp = ({route, homeworkdata}) => {
           <TouchableOpacity
             onPress={() => Linking.openURL(item.link)}
             style={styles.linkbtn}>
-            <Text style={styles.linktext}>
-              <Icon name="link" size={25} style={{alignItems: 'center'}} />
-              {item.title}
-            </Text>
+            <Icon name="link" size={25} />
+            <Text style={styles.linktext}>{item.title}</Text>
           </TouchableOpacity>
         </View>
       );
@@ -136,10 +134,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     alignItems: 'center',
+    flexDirection: 'row',
   },
 
   linktext: {
     color: 'white',
+    marginLeft: 20,
   },
 
   title: {
