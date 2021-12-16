@@ -76,7 +76,7 @@ const NavbarCmp = ({
       />
       <Tab.Screen
         name="공지사항"
-        children={() => <NoticeCmp route={route} noticedata={noticedata} />}
+        children={() => <NoticeCmp route={route} />}
       />
       <Tab.Screen
         name="과제"

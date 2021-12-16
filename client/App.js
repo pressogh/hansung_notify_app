@@ -79,26 +79,6 @@ const App = () => {
       });
   };
 
-  const get_noticedata = async () => {
-    var axios = require('axios');
-    var data = '';
-
-    var config = {
-      method: 'get',
-      url: `http://${URL}/api/user/notice`,
-      headers: {},
-      data: data,
-    };
-
-    await axios(config)
-      .then(function (response) {
-        setNoticedata(response.data.notice);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
   const get_homeworkdata = async () => {
     var axios = require('axios');
     var data = '';
@@ -198,7 +178,6 @@ const App = () => {
 
   useEffect(() => {
     get_classdata();
-    get_noticedata();
     get_homeworkdata();
     get_quizdata();
     get_filedata();
