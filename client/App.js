@@ -22,14 +22,14 @@ import {
   Linking,
 } from 'react-native';
 
-import FileCmp from './components/FileCmp';
-import HomeworkCmp from './components/HomeworkCmp';
-import QuizCmp from './components/QuizCmp';
-import NoticeCmp from './components/NoticeCmp';
-import HomeCmp from './components/HomeCmp';
-import NavbarCmp from './components/NavbarCmp';
-import ClassCmp from './components/ClassCmp';
-import CalendarCmp from './components/CalendarCmp';
+import FileCmp from '../src/components/FileCmp';
+import HomeworkCmp from '../src/components/HomeworkCmp';
+import QuizCmp from '../src/components/QuizCmp';
+import NoticeCmp from '../src/components/NoticeCmp';
+import HomeCmp from '../src/components/HomeCmp';
+import NavbarCmp from '../src/components/NavbarCmp';
+import ClassCmp from '../src/components/ClassCmp';
+import CalendarCmp from '../src/components/CalendarCmp';
 
 import AnimatedSplash from 'react-native-animated-splash-screen';
 
