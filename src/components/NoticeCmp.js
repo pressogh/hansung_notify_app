@@ -17,37 +17,21 @@ import {
 
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import {URL} from '../../env.json';
+
+import {getData} from '../service/Api';
 
 const NoticeCmp = ({route}) => {
-  const [noticedata, setNoticeData] = useState([]);
+  const [noticedata, setNoticeData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const get_noticedata = async () => {
-    var axios = require('axios');
-    var data = '';
-
-    var config = {
-      method: 'get',
-      url: `http://${URL}/api/user/notice`,
-      headers: {},
-      data: data,
+  useEffect(() => {
+    const get_data = async () => {
+      setNoticeData(await getData('notice'));
+      setIsLoading(false);
     };
 
-    await axios(config)
-      .then(function (response) {
-        setNoticeData(response.data.notice);
-        setIsLoading(false);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    get_noticedata();
-    console.log(noticedata);
-  }, []);
+    if (!noticedata) get_data();
+  }, [noticedata]);
 
   const renderitem = ({item, index}) => {
     if (route.params.class_name === item.class_name) {

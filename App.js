@@ -37,6 +37,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {URL} from './env.json';
+import {getData} from './src/service/Api';
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -59,107 +60,6 @@ const App = () => {
     ['영어커뮤니케이션 청취/회화 Ⅱ']: {color: '#E91E63'},
   });
 
-  const get_classdata = async () => {
-    var axios = require('axios');
-    var data = '';
-
-    var config = {
-      method: 'get',
-      url: `http://${URL}/api/user/class`,
-      headers: {},
-      data: data,
-    };
-
-    await axios(config)
-      .then(function (response) {
-        setClassdata(response.data.class);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const get_homeworkdata = async () => {
-    var axios = require('axios');
-    var data = '';
-
-    var config = {
-      method: 'get',
-      url: `http://${URL}/api/user/homework`,
-      headers: {},
-      data: data,
-    };
-
-    await axios(config)
-      .then(function (response) {
-        setHomeworkdata(response.data.homework);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const get_quizdata = async () => {
-    var axios = require('axios');
-    var data = '';
-
-    var config = {
-      method: 'get',
-      url: `http://${URL}/api/user/quiz`,
-      headers: {},
-      data: data,
-    };
-
-    await axios(config)
-      .then(function (response) {
-        setQuizdata(response.data.quiz);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const get_filedata = async () => {
-    var axios = require('axios');
-    var data = '';
-
-    var config = {
-      method: 'get',
-      url: `http://${URL}/api/user/file`,
-      headers: {},
-      data: data,
-    };
-
-    await axios(config)
-      .then(function (response) {
-        setFiledata(response.data.file);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const get_calendardata = async () => {
-    var axios = require('axios');
-    var data = '';
-
-    var config = {
-      method: 'get',
-      url: `http://${URL}/api/user/calendar`,
-      headers: {},
-      data: data,
-    };
-
-    await axios(config)
-      .then(function (response) {
-        setCalendardata(response.data.calendar);
-        setDay(response.data.day);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
   const make_tomark = async () => {
     let calendar = {};
     for (let i = 0; i < day.length; i++) {
@@ -177,11 +77,15 @@ const App = () => {
   };
 
   useEffect(() => {
-    get_classdata();
-    get_homeworkdata();
-    get_quizdata();
-    get_filedata();
-    get_calendardata();
+    const get_data = async () => {
+      setClassdata(await getData('class'));
+      setHomeworkdata(await getData('homework'));
+      setQuizdata(await getData('quiz'));
+      setFiledata(await getData('file'));
+      setCalendardata(await getData('calendar'));
+    };
+
+    get_data();
     make_tomark();
   }, []);
 
@@ -214,8 +118,6 @@ const App = () => {
               <NavbarCmp
                 {...props}
                 classdata={classdata}
-                noticedata={noticedata}
-                homeworkdata={homeworkdata}
                 quizdata={quizdata}
                 filedata={filedata}
                 classcolor={classcolor}

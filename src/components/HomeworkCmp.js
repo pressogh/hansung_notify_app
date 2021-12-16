@@ -18,7 +18,22 @@ import {
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const HomeworkCmp = ({route, homeworkdata}) => {
+import {getData} from '../service/Api';
+
+const HomeworkCmp = ({route}) => {
+  const [homeworkdata, setHomeworkData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const get_data = async () => {
+      setHomeworkData(await getData('homework'));
+      setIsLoading(false);
+    };
+
+    if (!homeworkdata) {
+      get_data();
+    }
+  }, [homeworkdata]);
+
   const parseDate = (dateString) => {
     const yyyy = parseInt(dateString.substr(0, 4));
     const mm = parseInt(dateString.substr(5, 2));
@@ -73,14 +88,18 @@ const HomeworkCmp = ({route, homeworkdata}) => {
   };
   return (
     <View style={styles.container}>
-      <FlatList
-        data={homeworkdata.sort((a, b) => {
-          return parseDate(a.due_date) - parseDate(b.due_date) < 0;
-        })}
-        renderItem={renderitem}
-        keyExtractor={(item, index) => index.toString()}
-        initialNumToRender={100}
-      />
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <FlatList
+          data={homeworkdata.sort((a, b) => {
+            return parseDate(a.due_date) - parseDate(b.due_date) < 0;
+          })}
+          renderItem={renderitem}
+          keyExtractor={(item, index) => index.toString()}
+          initialNumToRender={100}
+        />
+      )}
     </View>
   );
 };

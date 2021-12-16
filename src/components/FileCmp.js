@@ -18,7 +18,20 @@ import {
 import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const FileCmp = ({route, filedata}) => {
+import {getData} from '../service/Api';
+
+const FileCmp = ({route}) => {
+  const [filedata, setFileData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const get_data = async () => {
+      setFileData(await getData('file'));
+      setIsLoading(false);
+    };
+    if (!filedata) get_data();
+  }, [filedata]);
+
   const renderitem = ({item, index}) => {
     if (route.params.class_name === item.class_name) {
       return (

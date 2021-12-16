@@ -26,16 +26,7 @@ import QuizCmp from './QuizCmp';
 import NoticeCmp from './NoticeCmp';
 import ClassCmp from './ClassCmp';
 
-const NavbarCmp = ({
-  route,
-  noticedata,
-  homeworkdata,
-  quizdata,
-  filedata,
-  classdata,
-  navigation,
-  classcolor,
-}) => {
+const NavbarCmp = ({route, classdata, navigation, classcolor}) => {
   const Tab = createBottomTabNavigator();
 
   return (
@@ -78,20 +69,9 @@ const NavbarCmp = ({
         name="공지사항"
         children={() => <NoticeCmp route={route} />}
       />
-      <Tab.Screen
-        name="과제"
-        children={() => (
-          <HomeworkCmp route={route} homeworkdata={homeworkdata} />
-        )}
-      />
-      <Tab.Screen
-        name="퀴즈"
-        children={() => <QuizCmp route={route} quizdata={quizdata} />}
-      />
-      <Tab.Screen
-        name="파일"
-        children={() => <FileCmp route={route} filedata={filedata} />}
-      />
+      <Tab.Screen name="과제" children={() => <HomeworkCmp route={route} />} />
+      <Tab.Screen name="퀴즈" children={() => <QuizCmp route={route} />} />
+      <Tab.Screen name="파일" children={() => <FileCmp route={route} />} />
     </Tab.Navigator>
   );
 };
