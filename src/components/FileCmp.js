@@ -1,18 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useState, useEffect, useCallback} from 'react';
 
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
   FlatList,
-  TouchableOpacityBase,
   TouchableOpacity,
   Linking,
-  Button,
+  RefreshControl,
 } from 'react-native';
 
 import FlipCard from 'react-native-flip-card';
@@ -24,11 +19,17 @@ const FileCmp = ({route}) => {
   const [filedata, setFileData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
+  const get_data = async () => {
+    setFileData(await getData('file'));
+    setIsLoading(false);
+  };
+
+  const onRefresh = useCallback(async () => {
+    setIsLoading(true);
+    await get_data();
+  }, []);
+
   useEffect(() => {
-    const get_data = async () => {
-      setFileData(await getData('file'));
-      setIsLoading(false);
-    };
     if (!filedata) get_data();
   }, [filedata]);
 
@@ -75,6 +76,9 @@ const FileCmp = ({route}) => {
           renderItem={renderitem}
           keyExtractor={(item, index) => index.toString()}
           initialNumToRender={100}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+          }
         />
       )}
     </View>

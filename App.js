@@ -7,20 +7,8 @@
  */
 import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  FlatList,
-  TouchableOpacityBase,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 import FileCmp from './src/components/FileCmp';
 import HomeworkCmp from './src/components/HomeworkCmp';
@@ -36,7 +24,6 @@ import AnimatedSplash from 'react-native-animated-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {URL} from './env.json';
 import {getData} from './src/service/Api';
 
 const App = () => {

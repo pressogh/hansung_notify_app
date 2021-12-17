@@ -1,21 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import axios from 'axios';
 
 import {
+  RefreshControl,
   SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
   Text,
-  StatusBar,
   FlatList,
-  TouchableOpacityBase,
   TouchableOpacity,
   Linking,
-  Button,
 } from 'react-native';
 
-import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 import {getData} from '../service/Api';
@@ -23,12 +20,18 @@ import {getData} from '../service/Api';
 const HomeworkCmp = ({route}) => {
   const [homeworkdata, setHomeworkData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const get_data = async () => {
-      setHomeworkData(await getData('homework'));
-      setIsLoading(false);
-    };
 
+  const get_data = async () => {
+    setHomeworkData(await getData('homework'));
+    setIsLoading(false);
+  };
+
+  const onRefresh = useCallback(async () => {
+    setIsLoading(true);
+    await get_data();
+  }, []);
+
+  useEffect(() => {
     if (!homeworkdata) {
       get_data();
     }
@@ -87,7 +90,7 @@ const HomeworkCmp = ({route}) => {
     }
   };
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -98,9 +101,12 @@ const HomeworkCmp = ({route}) => {
           renderItem={renderitem}
           keyExtractor={(item, index) => index.toString()}
           initialNumToRender={100}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+          }
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

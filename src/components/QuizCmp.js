@@ -1,18 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useState, useEffect, useCallback} from 'react';
 
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
   FlatList,
-  TouchableOpacityBase,
   TouchableOpacity,
   Linking,
-  Button,
+  RefreshControl,
 } from 'react-native';
 
 import FlipCard from 'react-native-flip-card';
@@ -24,12 +19,17 @@ const QuizCmp = ({route}) => {
   const [quizdata, setQuizData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const get_data = async () => {
-      setQuizData(await getData('quiz'));
-      setIsLoading(false);
-    };
+  const get_data = async () => {
+    setQuizData(await getData('quiz'));
+    setIsLoading(false);
+  };
 
+  const onRefresh = useCallback(async () => {
+    setIsLoading(true);
+    await get_data();
+  }, []);
+
+  useEffect(() => {
     if (!quizdata) get_data();
   }, [quizdata]);
 
@@ -77,6 +77,9 @@ const QuizCmp = ({route}) => {
           renderItem={renderitem}
           keyExtractor={(item, index) => index.toString()}
           initialNumToRender={100}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+          }
         />
       )}
     </View>

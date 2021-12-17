@@ -3,18 +3,7 @@ import React, {useState, useEffect, useLayoutEffect} from 'react';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  FlatList,
-  TouchableOpacityBase,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
